@@ -1,0 +1,83 @@
+.background_gradient{
+	-fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 55% ,  #FDCA0C, #7F1550);
+ }
+
+ .button{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-color: #ffe500;
+ }
+
+ .button:hover{
+	 -fx-background-color: #ffa200;
+ }
+
+ .button:pressed{
+	 -fx-scale-y: 1.1;
+	 -fx-scale-X: 1.1;
+ }
+
+ .text-input-transparent{
+	 -fx-background-color: rgba(0,0,0,0);
+	 -fx-border-style: solid;
+	 -fx-border-width: 0 0 2 0;
+	 -fx-border-color: gray;
+	 -fx-text-fill: white;
+ }
+
+.card_black{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-color: linear-gradient(to top,  #333333 45%, black 49%);
+	-fx-text-fill: white;
+}
+
+.card_black:hover{
+	-fx-scale-y: 1.1;
+	-fx-scale-X: 1.1;
+}
+
+ .card_blue{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-color: linear-gradient(to top,  #019BB3 45%, #015F75 49%);
+	-fx-text-fill: white;
+ }
+
+ .card_blue:hover{
+	 -fx-scale-y: 1.1;
+	 -fx-scale-X: 1.1;
+ }
+
+.card_red{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-color: linear-gradient(to top,  #b53d10 45%, #8F2B1C 49%);
+	-fx-text-fill: white;
+}
+
+.card_red:hover{
+	-fx-scale-y: 1.1;
+	-fx-scale-X: 1.1;
+}
+
+.card{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-color: linear-gradient(to top,  rgba(255,255,255,1) 45%,rgba(240,217,185,1) 49%);
+ }
+
+.card:hover{
+	fx-background-color: linear-gradient(to top,  rgba(255,255,255,1) 45%,rgba(240,217,185,1) 49%);
+	-fx-scale-y: 1.1;
+	-fx-scale-X: 1.1;
+}
+
+.card_selected{
+	-fx-effect: dropshadow(three-pass-box, lime, 45,0, 0, 0);
+}
+
+ .red_pane{
+	-fx-background-color: #8F2B1C;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+ }
+
+ .blue_pane{
+	-fx-background-color: #015F75;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+ }

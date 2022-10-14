@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="908.0" prefWidth="1447.0" styleClass="background_gradient" stylesheets="@../style/codenamesStyles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.codenames.controller.SpymasterGameController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Game stats">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Rules">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="About">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <BorderPane prefHeight="781.0" prefWidth="1166.0" BorderPane.alignment="CENTER">
+               <center>
+                  <GridPane fx:id="cardsGrid" prefHeight="0.0" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                     <children>
+                        <Button id="card00" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="BOARD" textAlignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                        </Button>
+                        <Button id="card10" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="CHINA" textAlignment="CENTER" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card20" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="CROSS" textAlignment="CENTER" GridPane.columnIndex="2">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card30" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="FAN" textAlignment="CENTER" GridPane.columnIndex="3">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card40" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="HEAD" textAlignment="CENTER" GridPane.columnIndex="4">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card01" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="IVORY" textAlignment="CENTER" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card11" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="FORK" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card21" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="MILLIONARE" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="60.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card31" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="OPERA" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card41" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="STAFF" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card02" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="RACKET" textAlignment="CENTER" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card12" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="WASHINGTON" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card22" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="VACUUM" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card32" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="WORM" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card42" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="SHADOW" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card03" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="SWING" textAlignment="CENTER" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card13" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="OLYMPUS" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card23" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="MERCURY" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card33" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="KIWI" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card43" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="HOSPITAL" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card04" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="FOREST" textAlignment="CENTER" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card14" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="SUB" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card24" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="LEADLOCK" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card34" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="GOLD" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button id="card44" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="card" text="EYE" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets top="70.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                     </children>
+                  </GridPane>
+               </center>
+            </BorderPane>
+         </center>
+         <top>
+            <HBox alignment="CENTER" prefHeight="147.0" prefWidth="1321.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="82.0" fitWidth="570.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/codenames_logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </top>
+      </BorderPane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label id="lblTimer" fx:id="lblCountdown" alignment="CENTER" prefHeight="85.0" prefWidth="96.0" text="30s" textFill="#ffe500">
+               <font>
+                  <Font name="Dubai Bold" size="48.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <VBox prefHeight="200.0" prefWidth="481.0">
+               <children>
+                  <TextField id="tfClue" alignment="CENTER" prefHeight="77.0" prefWidth="469.0" promptText="Type your clue here..." styleClass="text-input-transparent">
+                     <font>
+                        <Font name="Dubai Bold" size="30.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </TextField>
+               </children>
+            </VBox>
+            <Label id="lblTimer" fx:id="lblCardCount" alignment="CENTER" prefHeight="85.0" prefWidth="46.0" text="0" textFill="#ffe500">
+               <font>
+                  <Font name="Dubai Bold" size="48.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="177.0" styleClass="btn_clue" text="GIVE CLUE">
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Dubai Bold" size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+   <left>
+      <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="780.0" prefWidth="239.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="428.0" prefWidth="279.0" styleClass="red_pane">
+               <children>
+                  <ImageView fitHeight="140.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@../assets/red_player.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Operative" textFill="#ff4848">
+                     <font>
+                        <Font name="Dubai Regular" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label id="lblRedOperative" fx:id="lblRedOperative" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Rea" textFill="WHITE">
+                     <font>
+                        <Font name="Dubai Bold" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Spymaster" textFill="#ff4848">
+                     <font>
+                        <Font name="Dubai Regular" size="20.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label id="lblRedSpymaster" fx:id="lblRedSpymaster" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Leon (You)" textFill="WHITE">
+                     <font>
+                        <Font name="Dubai Bold" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets right="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <children>
+                        <Text id="lblRedTeamPoints" fx:id="lblRedPoints" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="9">
+                           <font>
+                              <Font name="System Bold" size="100.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="200.0" left="10.0" right="10.0" top="155.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+   </left>
+   <right>
+      <HBox alignment="CENTER" prefHeight="780.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="428.0" prefWidth="251.0" styleClass="blue_pane">
+               <children>
+                  <ImageView fitHeight="139.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@../assets/player_blue.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Operative" textFill="#41fffc">
+                     <font>
+                        <Font name="Dubai Regular" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label id="lblBlueOperative" fx:id="lblBlueOperative" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Aleksander" textFill="WHITE">
+                     <font>
+                        <Font name="Dubai Bold" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Spymaster" textFill="#41ffff">
+                     <font>
+                        <Font name="Dubai Regular" size="20.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label id="lblBlueSpymaster" fx:id="lblBlueSpymaster" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Daniel" textFill="WHITE">
+                     <font>
+                        <Font name="Dubai Bold" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets right="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <children>
+                        <Text id="lblBlueTeamPoints" fx:id="lblBluePoints" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                           <font>
+                              <Font name="System Bold" size="100.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="200.0" left="10.0" right="10.0" top="155.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+   </right>
+</BorderPane>
