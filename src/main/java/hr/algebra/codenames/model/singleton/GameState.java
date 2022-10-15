@@ -55,15 +55,23 @@ public class GameState {
         }
     }
 
-    public static void toOperatorTurn(String clue, int givenWordCount) {
+    public static void toOperatorTurn(String clue, Integer givenWordCount) {
         currentClue = clue;
         currentGivenWordCount = givenWordCount;
     }
 
     private static String currentClue;
-    private static int currentGivenWordCount;
+    private static Integer currentGivenWordCount;
     private static boolean gameOver;
     private static Team winnerTeam;
+
+    public static String getCurrentClue() {
+        return currentClue;
+    }
+
+    public static Integer getCurrentGivenWordCount() {
+        return currentGivenWordCount;
+    }
 
     public static void toNextTeamTurn(List<String> guessedWords) {
         for (String word : guessedWords) {

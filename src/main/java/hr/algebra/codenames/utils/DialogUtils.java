@@ -4,6 +4,8 @@ import javafx.scene.control.Alert;
 
 public class DialogUtils {
     private DialogUtils(){}
+
+    // TODO: 15.10.2022. Create your own dialogs!
     public static void showInformationDialog(String title, String header, String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

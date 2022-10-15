@@ -370,7 +370,7 @@
             </Label>
             <VBox prefHeight="200.0" prefWidth="481.0">
                <children>
-                  <TextField id="tfClue" alignment="CENTER" prefHeight="77.0" prefWidth="469.0" promptText="Type your clue here..." styleClass="text-input-transparent">
+                  <TextField id="tfClue" fx:id="tfClue" alignment="CENTER" prefHeight="77.0" prefWidth="469.0" promptText="Type your clue here..." styleClass="text-input-transparent">
                      <font>
                         <Font name="Dubai Bold" size="30.0" />
                      </font>
@@ -388,7 +388,7 @@
                   <Insets left="25.0" />
                </HBox.margin>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="177.0" styleClass="btn_clue" text="GIVE CLUE">
+            <Button mnemonicParsing="false" onAction="#giveClueClick" prefHeight="60.0" prefWidth="177.0" styleClass="btn_clue" text="GIVE CLUE">
                <HBox.margin>
                   <Insets left="25.0" />
                </HBox.margin>
