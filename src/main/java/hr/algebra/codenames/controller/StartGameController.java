@@ -2,15 +2,12 @@ package hr.algebra.codenames.controller;
 
 import hr.algebra.codenames.CodenamesApplication;
 import hr.algebra.codenames.model.singleton.GameState;
-import hr.algebra.codenames.repository.implementations.MemoryWordRepository;
-import hr.algebra.codenames.repository.interfaces.WordRepository;
 import hr.algebra.codenames.utils.DialogUtils;
 import hr.algebra.codenames.utils.FXMLLoaderUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import java.io.IOException;
-import java.util.List;
 
 public class StartGameController {
     @FXML

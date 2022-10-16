@@ -20,8 +20,6 @@ public class TurnLog {
     private final String killerWord;
     //endregion
 
-    // TODO: 13.10.2022. Make a method in controller which takes team and generates TeamTurn while searching card field
-
     public TurnLog(Team team,
                    String clue,
                    List<String> guessedWords,

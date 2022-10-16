@@ -4,7 +4,7 @@ import hr.algebra.codenames.CodenamesApplication;
 import hr.algebra.codenames.model.Card;
 import hr.algebra.codenames.model.enums.CardColor;
 import hr.algebra.codenames.model.singleton.GameState;
-import hr.algebra.codenames.model.singleton.GlobalGameSettings;
+import hr.algebra.codenames.model.singleton.GameSettings;
 import hr.algebra.codenames.utils.DialogUtils;
 import hr.algebra.codenames.utils.FXMLLoaderUtils;
 import javafx.application.Platform;
@@ -45,74 +45,63 @@ public class SpymasterGameController {
     private TextField tfClue;
     @FXML
     private GridPane cardsGrid;
-    //endregion
-    private HashMap<String, Card> cards;
-    private int secondsLeft = GlobalGameSettings.SPYMASTER_TURN_DURATION;
-    private Integer wordCount;
-    private List<String> selectedWords;
-
-    public SpymasterGameController() {
-        this.wordCount = 0;
-    }
-    private void updateCardCounter(Integer delta) {
-        this.wordCount += delta;
-        this.lblCardCount.setText(this.wordCount.toString());
-    }
     @FXML
-    private void giveClueClick(){
-        if(!formValid())
-            return;
-        try {
-            GameState.toOperatorTurn(this.tfClue.getText(), this.wordCount);
-            FXMLLoaderUtils.loadScreen(CodenamesApplication.getMainStage(), "Codenames Java Edition", "view/operativeGameScreen.fxml");
-        } catch (IOException e) {
-            DialogUtils.showErrorDialog("Error", "Fatal application error", e.getMessage());
-        }
-    }
+    private Button btnClue;
+    //endregion
 
-    private boolean formValid() {
-        String message = "";
-        boolean valid = true;
-        if(this.wordCount == 0){
-            message += "You must select one or more words. ";
-            valid = false;
-        }
-        if(this.tfClue.getText().isBlank()){
-            message += "You must give clue to your operative";
-            valid = false;
-        }
-        if(!message.isEmpty())
-            DialogUtils.showInformationDialog("", "Problem!", message);
-        return valid;
-    }
+    //region Private variables
+    private HashMap<String, Card> cardsMap;
+    private int secondsLeft = GameSettings.SPYMASTER_TURN_DURATION;
+    private Integer selectedWordCount;
+    private List<String> selectedWords;
+    //endregion
 
-    private void cardSelected(ActionEvent actionEvent){
-        Button selectedCard = (Button)actionEvent.getSource();
-        if(cards.get(selectedCard.getText()).getColor() == CardColor.Killer
-                || cards.get(selectedCard.getText()).getColor() == CardColor.Passanger)
-            return;
-        if(cards.get(selectedCard.getText()).getColor() != GameState.getCurrentTeam().getTeamColor())
-            return;
-        if(selectedCard.getStyleClass().contains(GlobalGameSettings.CARD_SELECTED_CSS)){
-            selectedCard.getStyleClass().removeAll(GlobalGameSettings.CARD_SELECTED_CSS);
-            this.updateCardCounter(-1);
-            this.selectedWords.remove(selectedCard.getText());
-            return;
-        }
-        selectedCard.getStyleClass().add(GlobalGameSettings.CARD_SELECTED_CSS);
-        this.selectedWords.add(selectedCard.getText());
-        this.updateCardCounter(1);
-    }
-
+    //region Event handlers
     @FXML
     protected void initialize() {
-        this.selectedWords = new ArrayList<>();
+        this.btnClue.setDisable(true);
         initializeLabels();
         updateCardCounter(0);
         initializeCards();
         startCountdown();
     }
+    @FXML
+    private void giveClueClick(){
+        goToOperative();
+    }
+    @FXML
+    private void clueTyped(){
+        checkClueEnabled();
+    }
+    private void cardSelected(ActionEvent actionEvent){
+        Button selectedCard = (Button)actionEvent.getSource();
+        //Spymaster selected card that is already guessed
+        if(selectedCard.getText().isBlank())
+            return;
+        //Spymaster has selected killer or passanger
+        if(cardsMap.get(selectedCard.getText()).getColor() == CardColor.Killer
+                || cardsMap.get(selectedCard.getText()).getColor() == CardColor.Passanger)
+            return;
+        //Spymaster has selected opposite team's card
+        if(cardsMap.get(selectedCard.getText()).getColor() != GameState.getCurrentTeam().getTeamColor())
+            return;
+        //Spymaster has selected already selected card (he unselects it)
+        if(selectedCard.getStyleClass().contains(GameSettings.CARD_SELECTED_CSS)){
+            selectedCard.getStyleClass().removeAll(GameSettings.CARD_SELECTED_CSS);
+            this.updateCardCounter(-1);
+            this.selectedWords.remove(selectedCard.getText());
+            checkClueEnabled();
+            return;
+        }
+        //Spymaster selects a valid card
+        selectedCard.getStyleClass().add(GameSettings.CARD_SELECTED_CSS);
+        this.selectedWords.add(selectedCard.getText());
+        this.updateCardCounter(1);
+        checkClueEnabled();
+    }
+    //endregion
 
+    //region Initialization
     private void initializeLabels() {
         this.lblRedOperative.setText(GameState.getRedTeam().getOperative().getName());
         this.lblRedSpymaster.setText(GameState.getRedTeam().getSpymaster().getName());
@@ -136,33 +125,96 @@ public class SpymasterGameController {
                 ((Button)component).setOnAction(this::cardSelected);
             }
         }
-        this.cards = GameState.getCardsMap();
+        this.cardsMap = GameState.getCardsMap();
         int i = 0;
-        for (Card card : cards.values()) {
-            physicalCards.get(i).setText(card.getWord());
-            physicalCards.get(i).getStyleClass().clear();
+        for (Card card : cardsMap.values()) {
+            Button physicalCard = physicalCards.get(i);
+            physicalCard.setText(card.getWord());
+            physicalCard.getStyleClass().clear();
             if(card.getIsGuessed()){
-                physicalCards.get(i).setText("");
+                physicalCard.setText("");
                 if(card.getColor() == CardColor.Red)
-                    physicalCards.get(i).getStyleClass().addAll(GlobalGameSettings.CARD_RED_GUESSED_CSS);
+                    physicalCard.getStyleClass().addAll(GameSettings.CARD_RED_GUESSED_CSS);
                 else if (card.getColor() == CardColor.Blue)
-                    physicalCards.get(i).getStyleClass().addAll(GlobalGameSettings.CARD_BLUE_GUESSED_CSS);
+                    physicalCard.getStyleClass().addAll(GameSettings.CARD_BLUE_GUESSED_CSS);
                 else if (card.getColor() == CardColor.Passanger)
-                    physicalCards.get(i).getStyleClass().addAll(GlobalGameSettings.CARD_PASSANGER_GUESSED_CSS);
+                    physicalCard.getStyleClass().addAll(GameSettings.CARD_PASSANGER_GUESSED_CSS);
                 else if (card.getColor() == CardColor.Killer)
-                    physicalCards.get(i).getStyleClass().addAll(GlobalGameSettings.CARD_KILLER_GUESSED_CSS);
+                    physicalCard.getStyleClass().addAll(GameSettings.CARD_KILLER_GUESSED_CSS);
             } else {
                 if(card.getColor() == CardColor.Red)
-                    physicalCards.get(i).getStyleClass().addAll(GlobalGameSettings.CARD_RED_CSS);
+                    physicalCard.getStyleClass().addAll(GameSettings.CARD_RED_CSS);
                 else if (card.getColor() == CardColor.Blue)
-                    physicalCards.get(i).getStyleClass().addAll(GlobalGameSettings.CARD_BLUE_CSS);
+                    physicalCard.getStyleClass().addAll(GameSettings.CARD_BLUE_CSS);
                 else if (card.getColor() == CardColor.Passanger)
-                    physicalCards.get(i).getStyleClass().addAll(GlobalGameSettings.CARD_PASSANGER_CSS);
+                    physicalCard.getStyleClass().addAll(GameSettings.CARD_PASSANGER_CSS);
                 else if (card.getColor() == CardColor.Killer)
-                    physicalCards.get(i).getStyleClass().addAll(GlobalGameSettings.CARD_KILLER_CSS);
+                    physicalCard.getStyleClass().addAll(GameSettings.CARD_KILLER_CSS);
             }
-            physicalCards.get(i).setTextAlignment(TextAlignment.CENTER);
+            physicalCard.setTextAlignment(TextAlignment.CENTER);
             i++;
+        }
+    }
+    //endregion
+
+    public SpymasterGameController() {
+        this.selectedWords = new ArrayList<>();
+        this.selectedWordCount = 0;
+    }
+
+    /**
+     * Goes to operative turn
+     */
+    private void goToOperative() {
+        try {
+            this.setSecondsLeftToZero();
+            GameState.toOperatorTurn(this.tfClue.getText(), this.selectedWordCount);
+            FXMLLoaderUtils.loadScreen(CodenamesApplication.getMainStage(),
+                    GameSettings.GAME_TITLE,
+                    GameSettings.OPERATIVE_VIEW_PATH);
+        } catch (IOException e) {
+            DialogUtils.showFatalErrorDialog();
+        }
+    }
+
+    /**
+     * Goes to next turn if timeout happened. Turn goes to opposite team's spymaster
+     */
+    private void goToNextTurnTimeout(){
+        this.setSecondsLeftToZero();
+        GameState.toNextTeamTurn(new ArrayList<>());
+        try {
+            FXMLLoaderUtils.loadScreen(CodenamesApplication.getMainStage(),
+                    GameSettings.GAME_TITLE,
+                    GameSettings.SPYMASTER_VIEW_PATH);
+        } catch (IOException e) {
+            DialogUtils.showFatalErrorDialog();
+        }
+    }
+
+    /**
+     * Used to stop the timer. if statement inside timer checks secondsLeft == 0 flag and cancels timer thread.
+     * This has to be done manually so that if user gives clue, timeout doesn't occur after controller is disposed
+     */
+    private void setSecondsLeftToZero(){
+        this.secondsLeft = 0;
+    }
+    private void checkClueEnabled(){
+        String clue = this.tfClue.getText().trim();
+        this.btnClue.setDisable(clue.isBlank() || this.selectedWordCount == 0);
+    }
+
+    private void updateCardCounter(Integer delta) {
+        this.selectedWordCount += delta;
+        this.lblCardCount.setText(this.selectedWordCount.toString());
+    }
+
+    private void updateCountdownLabel() {
+        lblCountdown.setText(secondsLeft + "s");
+        if(secondsLeft <= 15)
+            lblCountdown.getStyleClass().add(GameSettings.RED_TEXT_CSS);
+        if(secondsLeft == 0){
+            goToNextTurnTimeout();
         }
     }
 
@@ -171,8 +223,10 @@ public class SpymasterGameController {
             @Override
             public void run() {
                 Platform.runLater(() -> {
+                    if(secondsLeft == 0)
+                        cancel();
                     secondsLeft--;
-                    lblCountdown.setText(secondsLeft + "s");
+                    updateCountdownLabel();
                 });
             }
         };

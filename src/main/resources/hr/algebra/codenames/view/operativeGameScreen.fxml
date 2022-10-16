@@ -359,14 +359,6 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label id="lblTimer" fx:id="lblCountdown" alignment="CENTER" prefHeight="85.0" prefWidth="96.0" text="30s" textFill="#ffe500">
-               <font>
-                  <Font name="Dubai Bold" size="48.0" />
-               </font>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Label>
             <VBox alignment="CENTER">
                <children>
                   <Label fx:id="lblClue" alignment="CENTER" text="&quot;CLUE&quot;" textFill="WHITE">
@@ -400,6 +392,14 @@
                   <Insets left="35.0" />
                </HBox.margin>
             </Button>
+            <Label id="lblTimer" fx:id="lblCountdown" alignment="CENTER" prefHeight="85.0" prefWidth="96.0" text="30s" textFill="#ffe500">
+               <font>
+                  <Font name="Dubai Bold" size="48.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin>
+            </Label>
          </children>
       </HBox>
    </bottom>

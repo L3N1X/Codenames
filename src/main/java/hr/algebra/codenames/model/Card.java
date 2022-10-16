@@ -4,18 +4,18 @@ import hr.algebra.codenames.model.enums.CardColor;
 
 public class Card {
     private final String word;
-    private final CardColor type;
+    private final CardColor color;
     private boolean isGuessed;
 
-    public Card(String word, CardColor type){
+    public Card(String word, CardColor color){
         this.word = word;
-        this.type = type;
+        this.color = color;
     }
     public String getWord() {
         return word;
     }
     public CardColor getColor() {
-        return type;
+        return color;
     }
     public void markAsGuessed(){
         this.isGuessed = true;

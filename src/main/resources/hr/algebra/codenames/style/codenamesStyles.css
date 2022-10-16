@@ -7,6 +7,15 @@
 	-fx-background-color: #ffe500;
  }
 
+ .btn_exit{
+	 -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	 -fx-background-color: #7F1550;
+ }
+
+ .btn_exit:hover{
+	 -fx-background-color: #8F2B1C;
+ }
+
  .button:hover{
 	 -fx-background-color: #ffa200;
  }
@@ -18,6 +27,14 @@
 
  .green{
 	 -fx-text-fill: lime;
+ }
+
+ .red{
+	 -fx-text-fill: red;
+ }
+
+ .blue{
+	 -fx-text-fill: #00fff2;
  }
 
  .text-input-transparent{
@@ -39,6 +56,11 @@
 	-fx-background-color: linear-gradient(to top,  #333333 0%, black 100%);
 }
 
+.card_blue_black:hover{
+	-fx-scale-y: 1.1;
+	-fx-scale-X: 1.1;
+}
+
 .card_black:hover{
 	-fx-scale-y: 1.1;
 	-fx-scale-X: 1.1;
@@ -55,6 +77,11 @@
 	 -fx-background-color: linear-gradient(to top,  #019BB3 0%, #015F75 100%);
  }
 
+ .card_blue_guessed:hover{
+	 -fx-scale-y: 1.1;
+	 -fx-scale-X: 1.1;
+ }
+
  .card_blue:hover{
 	 -fx-scale-y: 1.1;
 	 -fx-scale-X: 1.1;
@@ -69,7 +96,11 @@
 .card_red_guessed{
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 	-fx-background-color: linear-gradient(to top,  #b53d10 0%, #8F2B1C 100%);
+}
 
+.card_red_guessed:hover{
+	-fx-scale-y: 1.1;
+	-fx-scale-X: 1.1;
 }
 
 .card_red:hover{
@@ -87,9 +118,18 @@
 	-fx-background-color: linear-gradient(to top,  rgba(255,255,255,1) 45%,rgba(240,217,185,1) 49%);
 }
 
+.card_passanger:hover{
+	-fx-scale-y: 1.1;
+	-fx-scale-X: 1.1;
+}
+
 .card_passanger_guessed{
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 	-fx-background-color: linear-gradient(to top,  rgba(255,255,255,1) 0%,rgba(240,217,185,1) 100%);
+}
+.card_passanger_guessed:hover{
+	-fx-scale-y: 1.1;
+	-fx-scale-X: 1.1;
 }
 
 .card:hover{

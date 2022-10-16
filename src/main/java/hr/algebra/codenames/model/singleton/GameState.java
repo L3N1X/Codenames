@@ -12,22 +12,23 @@ import java.util.List;
 import java.util.Random;
 
 public class GameState {
-    // TODO: 13.10.2022. This class is only used before implementing networking, gamestate will not be saved this way
-
+    // TODO: 13.10.2022. This class is only used before implementing networking, GameState will not be saved this way
     private GameState(){}
-
     private static CardColor currentColorTurn;
     private static Team currentTeam;
     private static  Team redTeam;
     private static Team blueTeam;
-
     private static HashMap<String, Card> cardsMap;
 
     private static CardColor getStartingFirstColor() {
         return (new Random()).nextBoolean() ? CardColor.Red : CardColor.Blue;
     }
 
+    /**
+     * Used only once to initialize the game
+     */
     public static void initialize(String redSpymasterName, String redOperativeName, String blueSpymasterName, String blueOperativeName){
+        hasWinner = false;
         CardColor startingFirstColor = getStartingFirstColor();
         if(startingFirstColor == CardColor.Red){
             redTeam = new Team(CardColor.Red, true, redSpymasterName, redOperativeName);
@@ -41,6 +42,17 @@ public class GameState {
         cardsMap = new HashMap<>();
         generateCards(startingFirstColor);
         currentColorTurn = startingFirstColor;
+    }
+
+    /**
+     * Used to start a new game after previous game
+     */
+    public static void reinitialize(){
+        //Purposely put in different order, so that in next game current spymaster is operative and vice versa
+        initialize(redTeam.getOperative().getName(),
+                redTeam.getSpymaster().getName(),
+                blueTeam.getOperative().getName(),
+                blueTeam.getSpymaster().getName());
     }
 
     private static void generateCards(CardColor startingFirstColor) {
@@ -59,11 +71,13 @@ public class GameState {
         currentClue = clue;
         currentGivenWordCount = givenWordCount;
     }
-
     private static String currentClue;
     private static Integer currentGivenWordCount;
-    private static boolean gameOver;
+    private static boolean hasWinner;
     private static Team winnerTeam;
+    public static boolean getHasWinner(){
+        return hasWinner;
+    }
 
     public static String getCurrentClue() {
         return currentClue;
@@ -84,7 +98,7 @@ public class GameState {
                 card.markAsGuessed();
             }
             else if (card.getColor() == CardColor.Killer){
-                gameOver = true;
+                hasWinner = true;
                 if(currentTeam.getTeamColor() == CardColor.Red)
                     winnerTeam = blueTeam;
                 else
@@ -99,11 +113,11 @@ public class GameState {
             }
         }
         if(redTeam.getPoints() == 0){
-            gameOver = true;
+            hasWinner = true;
             winnerTeam = redTeam;
         }
         else if (blueTeam.getPoints() == 0){
-            gameOver = true;
+            hasWinner = true;
             winnerTeam = blueTeam;
         }
         swapCurrentColor();
@@ -132,6 +146,10 @@ public class GameState {
 
     public static Team getBlueTeam() {
         return blueTeam;
+    }
+
+    public static Team getWinnerTeam() {
+        return winnerTeam;
     }
 
     public static HashMap<String, Card> getCardsMap() {

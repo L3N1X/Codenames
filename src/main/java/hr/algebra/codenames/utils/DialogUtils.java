@@ -4,7 +4,6 @@ import javafx.scene.control.Alert;
 
 public class DialogUtils {
     private DialogUtils(){}
-
     // TODO: 15.10.2022. Create your own dialogs!
     public static void showInformationDialog(String title, String header, String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -18,6 +17,13 @@ public class DialogUtils {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(message);
+        alert.showAndWait();
+    }
+    public static void showFatalErrorDialog(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("ERROR");
+        alert.setHeaderText("Fatal application error occurred");
+        alert.setContentText("Please restart the application");
         alert.showAndWait();
     }
 }
