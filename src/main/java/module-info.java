@@ -7,5 +7,6 @@ module hr.algebra.codenames {
     opens hr.algebra.codenames to javafx.fxml;
     exports hr.algebra.codenames;
     exports hr.algebra.codenames.controller;
+    exports hr.algebra.codenames.model;
     opens hr.algebra.codenames.controller to javafx.fxml;
 }

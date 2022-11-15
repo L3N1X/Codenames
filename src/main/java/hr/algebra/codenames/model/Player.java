@@ -3,7 +3,9 @@ package hr.algebra.codenames.model;
 import hr.algebra.codenames.model.enums.PlayerRole;
 import hr.algebra.codenames.model.enums.CardColor;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
     private final String name;
     private final CardColor cardColor;
     private PlayerRole currentRole;

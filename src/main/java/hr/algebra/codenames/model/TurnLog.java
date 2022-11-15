@@ -1,23 +1,27 @@
 package hr.algebra.codenames.model;
 
-import java.text.MessageFormat;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
-public class TurnLog {
+public class TurnLog implements Serializable {
 
     //region private variables
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     private final LocalDateTime dateTime;
-    private final Team team;
-    private final String clue;
-    private final ArrayList<String> guessedWords;
-    private final ArrayList<String> correctWords;
-    private final ArrayList<String> opponentWords;
-    private final ArrayList<String> passangerWords;
-    private final String killerWord;
+    private final StringProperty team;
+    private final StringProperty clue;
+    private final StringProperty guessedWords;
+    private final StringProperty correctWords;
+    private final StringProperty opponentWords;
+    private final StringProperty passangerWords;
+    private final StringProperty killerWord;
+    private final StringProperty victory;
+    private final Team winnerTeam;
     //endregion
 
     public TurnLog(Team team,
@@ -26,32 +30,54 @@ public class TurnLog {
                    List<String> correctWords,
                    List<String> opponentWords,
                    List<String> passangerWords,
-                   String killerWord) {
-        this.team = team;
-        this.clue = clue;
-        this.guessedWords = (ArrayList<String>) guessedWords;
-        this.correctWords = (ArrayList<String>) correctWords;
-        this.opponentWords = (ArrayList<String>) opponentWords;
-        this.passangerWords = (ArrayList<String>) passangerWords;
-        this.killerWord = killerWord;
+                   String killerWord,
+                   Team winnerTeam) {
+        this.team = new SimpleStringProperty(team.getTeamColor().toString() + " | " + team.getSpymaster().getName()
+                + " (s) " + team.getOperative().getName() + " (o)");
+        this.clue = new SimpleStringProperty(clue);
+        this.guessedWords = new SimpleStringProperty(String.join(", ", guessedWords));
+        this.correctWords = new SimpleStringProperty(String.join(", ", correctWords));
+        this.opponentWords = new SimpleStringProperty(String.join(", ", opponentWords));
+        this.passangerWords = new SimpleStringProperty(String.join(", ", passangerWords));
+        this.killerWord = new SimpleStringProperty(killerWord != null ? killerWord : "");
+        this.victory = new SimpleStringProperty(winnerTeam != null ? winnerTeam.getTeamColor() + " Team VICTORY" : "");
+        this.winnerTeam = winnerTeam;
         this.dateTime = LocalDateTime.now();
     }
+    public Team getWinnerTeam() { return winnerTeam; }
+    public StringProperty dateTimeProperty() {
+        return new SimpleStringProperty(this.dateTime.toString());
+    }
 
-    public String getLog(){
-        String guessedWordsString = String.join(",", this.guessedWords);
-        String correctWordsString = String.join(",", this.correctWords);
-        String opponentWordsString = String.join(",", this.opponentWords);
-        String passangerWordsString = String.join(",", this.passangerWords);
-        return MessageFormat.format(
-                "{0} Team {1} | {2} (spymaster) gave clue '{3}'\n {4} (operative) guessed: {5}\n{6}\n{7}\n{8}\n{9}",
-                this.dateTime.format(this.dateTimeFormatter),
-                team.getTeamColor(),
-                team.getSpymaster().getName(),
-                this.clue,
-                this.team.getOperative().getName(),
-                guessedWordsString, this.correctWords.size() == 0 ? "None of the words were correct" : correctWordsString,
-                this.opponentWords.size() == 0 ? "" : opponentWordsString,
-                this.passangerWords.size() == 0 ? "" : passangerWordsString,
-                this.killerWord == null ? "" : "Guessed the killer word: '" + this.killerWord + "'");
+    public final StringProperty teamProperty() {
+        return team;
+    }
+
+    public final StringProperty clueProperty() {
+        return clue;
+    }
+
+    public final StringProperty guessedWordsProperty() {
+        return guessedWords;
+    }
+
+    public final StringProperty correctWordsProperty() {
+        return correctWords;
+    }
+
+    public final StringProperty opponentWordsProperty() {
+        return opponentWords;
+    }
+
+    public final StringProperty passangerWordsProperty() {
+        return passangerWords;
+    }
+
+    public final StringProperty killerWordProperty() {
+        return killerWord;
+    }
+
+    public final StringProperty victoryProperty() {
+        return victory;
     }
 }

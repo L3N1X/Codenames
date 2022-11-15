@@ -1,5 +1,7 @@
 package hr.algebra.codenames.model.enums;
 
-public enum PlayerRole {
+import java.io.Serializable;
+
+public enum PlayerRole implements Serializable {
     Spymaster, Operative
 }

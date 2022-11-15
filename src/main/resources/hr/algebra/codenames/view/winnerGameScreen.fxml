@@ -19,12 +19,14 @@
         <menus>
           <Menu mnemonicParsing="false" text="Game stats">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#logsClicked" text="Logs" />
+                  <MenuItem mnemonicParsing="false" onAction="#highscoreClicked" text="Highscore" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Rules">
+          <Menu mnemonicParsing="false" text="Action">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" onAction="#saveGame" text="Save" />
+                  <MenuItem mnemonicParsing="false" onAction="#loadGame" text="Load" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="About">
@@ -74,9 +76,6 @@
                         <VBox fx:id="pnlWinner" prefHeight="447.0" prefWidth="310.0">
                            <children>
                               <ImageView fx:id="ivWinner" fitHeight="185.0" fitWidth="290.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../assets/red_player.png" />
-                                 </image>
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>

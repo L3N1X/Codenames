@@ -1,5 +1,7 @@
 package hr.algebra.codenames.model.enums;
 
-public enum CardColor {
+import java.io.Serializable;
+
+public enum CardColor implements Serializable {
     Red, Blue, Passanger, Killer
 }

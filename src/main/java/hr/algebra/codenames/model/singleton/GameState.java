@@ -3,34 +3,49 @@ package hr.algebra.codenames.model.singleton;
 import hr.algebra.codenames.gameutils.CardColorGenerator;
 import hr.algebra.codenames.model.Card;
 import hr.algebra.codenames.model.Team;
+import hr.algebra.codenames.model.TurnLog;
 import hr.algebra.codenames.model.enums.CardColor;
 import hr.algebra.codenames.repository.factories.RepositoryFactory;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
-public class GameState {
-    // TODO: 13.10.2022. This class is only used before implementing networking, GameState will not be saved this way
-    private GameState(){}
-    private static CardColor currentColorTurn;
-    private static Team currentTeam;
-    private static  Team redTeam;
-    private static Team blueTeam;
-    private static HashMap<String, Card> cardsMap;
+public class GameState implements Serializable {
 
-    private static CardColor getStartingFirstColor() {
-        return (new Random()).nextBoolean() ? CardColor.Red : CardColor.Blue;
+    //@Serial
+    //private static final long serialVersionUID = -3086391508939941693L;
+    //private static final GameState instance = new GameState();
+
+    /*public static GameState getInstance() {
+        //if (instance == null)
+        //    instance = new GameState();
+        return instance;
+    }*/
+
+    /*@Serial
+    public Object readResolve() {
+        return getInstance();
+    }*/
+
+    public GameState() {
     }
 
-    /**
-     * Used only once to initialize the game
-     */
-    public static void initialize(String redSpymasterName, String redOperativeName, String blueSpymasterName, String blueOperativeName){
+    //region Private variables
+    private String currentClue;
+    private Integer currentGivenWordCount;
+    private boolean hasWinner;
+    private Team winnerTeam;
+    private CardColor currentColorTurn;
+    private Team currentTeam;
+    private Team redTeam;
+    private Team blueTeam;
+    private HashMap<String, Card> cardsMap;
+    //endregion
+
+    public void initialize(String redSpymasterName, String redOperativeName, String blueSpymasterName, String blueOperativeName) throws IOException {
         hasWinner = false;
         CardColor startingFirstColor = getStartingFirstColor();
-        if(startingFirstColor == CardColor.Red){
+        if (startingFirstColor == CardColor.Red) {
             redTeam = new Team(CardColor.Red, true, redSpymasterName, redOperativeName);
             blueTeam = new Team(CardColor.Blue, false, blueSpymasterName, blueOperativeName);
             currentTeam = redTeam;
@@ -44,10 +59,7 @@ public class GameState {
         currentColorTurn = startingFirstColor;
     }
 
-    /**
-     * Used to start a new game after previous game
-     */
-    public static void reinitialize(){
+    public void reinitialize() throws IOException {
         //Purposely put in different order, so that in next game current spymaster is operative and vice versa
         initialize(redTeam.getOperative().getName(),
                 redTeam.getSpymaster().getName(),
@@ -55,9 +67,9 @@ public class GameState {
                 blueTeam.getSpymaster().getName());
     }
 
-    private static void generateCards(CardColor startingFirstColor) {
+    private void generateCards(CardColor startingFirstColor) throws IOException {
         List<CardColor> cardColors = CardColorGenerator.getCardColors(startingFirstColor);
-        List<String> words = RepositoryFactory.getWordRepository().GetWords();
+        List<String> words = RepositoryFactory.getRepository().GetWords();
         Collections.shuffle(words);
         int count = 0;
         for (CardColor cardType : cardColors) {
@@ -67,92 +79,112 @@ public class GameState {
         }
     }
 
-    public static void toOperatorTurn(String clue, Integer givenWordCount) {
+    private CardColor getStartingFirstColor() {
+        return (new Random()).nextBoolean() ? CardColor.Red : CardColor.Blue;
+    }
+
+    public void toOperatorTurn(String clue, Integer givenWordCount) {
         currentClue = clue;
         currentGivenWordCount = givenWordCount;
     }
-    private static String currentClue;
-    private static Integer currentGivenWordCount;
-    private static boolean hasWinner;
-    private static Team winnerTeam;
-    public static boolean getHasWinner(){
-        return hasWinner;
+
+    public boolean isOperativeTurn() {
+        return this.currentClue != null && this.currentGivenWordCount != null;
     }
 
-    public static String getCurrentClue() {
-        return currentClue;
-    }
-
-    public static Integer getCurrentGivenWordCount() {
-        return currentGivenWordCount;
-    }
-
-    public static void toNextTeamTurn(List<String> guessedWords) {
+    public void toNextTeamTurn(List<String> guessedWords) {
+        List<String> correctWords = new ArrayList<>();
+        List<String> opponentWords = new ArrayList<>();
+        List<String> passangerWords = new ArrayList<>();
+        String killerWord = null;
         for (String word : guessedWords) {
             Card card = cardsMap.get(word);
-            if(card.getColor() == currentTeam.getTeamColor()) {
+            if (card.getColor() == currentTeam.getTeamColor()) {
+                correctWords.add(word);
                 currentTeam.decrementPoints();
                 card.markAsGuessed();
-            }
-            else if (card.getColor() == CardColor.Passanger){
+            } else if (card.getColor() == CardColor.Passanger) {
+                passangerWords.add(word);
                 card.markAsGuessed();
-            }
-            else if (card.getColor() == CardColor.Killer){
+            } else if (card.getColor() == CardColor.Killer) {
+                killerWord = word;
                 hasWinner = true;
-                if(currentTeam.getTeamColor() == CardColor.Red)
+                if (currentTeam.getTeamColor() == CardColor.Red)
                     winnerTeam = blueTeam;
                 else
                     winnerTeam = redTeam;
-            }
-            else {
+            } else {
+                opponentWords.add(word);
                 card.markAsGuessed();
-                if(currentTeam.getTeamColor() == CardColor.Red)
+                if (currentTeam.getTeamColor() == CardColor.Red)
                     blueTeam.decrementPoints();
                 else
                     redTeam.decrementPoints();
             }
         }
-        if(redTeam.getPoints() == 0){
+        if (redTeam.getPoints() == 0) {
             hasWinner = true;
             winnerTeam = redTeam;
-        }
-        else if (blueTeam.getPoints() == 0){
+        } else if (blueTeam.getPoints() == 0) {
             hasWinner = true;
             winnerTeam = blueTeam;
         }
+        TurnLog turnLog = new TurnLog(currentTeam,
+                currentClue,
+                guessedWords,
+                correctWords,
+                opponentWords,
+                passangerWords,
+                killerWord,
+                winnerTeam);
+        GameLogger.getInstance().addTurnLog(turnLog);
         swapCurrentColor();
         currentClue = null;
         currentGivenWordCount = 0;
     }
 
-    private static void swapCurrentColor() {
-        if(currentColorTurn == CardColor.Red)
+    private void swapCurrentColor() {
+        if (currentColorTurn == CardColor.Red)
             currentColorTurn = CardColor.Blue;
         else
             currentColorTurn = CardColor.Red;
-        if(currentColorTurn == CardColor.Red)
+        if (currentColorTurn == CardColor.Red)
             currentTeam = redTeam;
         else
             currentTeam = blueTeam;
     }
 
-    public static Team getCurrentTeam(){
+    //region getters
+    public boolean getHasWinner() {
+        return hasWinner;
+    }
+
+    public String getCurrentClue() {
+        return currentClue;
+    }
+
+    public Integer getCurrentGivenWordCount() {
+        return currentGivenWordCount;
+    }
+
+    public Team getCurrentTeam() {
         return currentTeam;
     }
 
-    public static Team getRedTeam() {
+    public Team getRedTeam() {
         return redTeam;
     }
 
-    public static Team getBlueTeam() {
+    public Team getBlueTeam() {
         return blueTeam;
     }
 
-    public static Team getWinnerTeam() {
+    public Team getWinnerTeam() {
         return winnerTeam;
     }
 
-    public static HashMap<String, Card> getCardsMap() {
+    public HashMap<String, Card> getCardsMap() {
         return new HashMap<>(cardsMap);
     }
+    //endregion
 }

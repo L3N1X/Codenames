@@ -1,6 +1,7 @@
 package hr.algebra.codenames;
 
 import hr.algebra.codenames.controller.StartGameController;
+import hr.algebra.codenames.model.singleton.GameSettings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,9 +17,9 @@ public class CodenamesApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(CodenamesApplication.class.getResource("view/startGameScreen.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(CodenamesApplication.class.getResource(GameSettings.START_VIEW_PATH));
         Scene scene = new Scene(fxmlLoader.load(), 1500, 900);
-        stage.setTitle("Codenames Java Edition");
+        stage.setTitle(GameSettings.GAME_TITLE);
         stage.setScene(scene);
         stage.show();
     }

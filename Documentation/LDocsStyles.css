@@ -1,0 +1,46 @@
+body{
+    background-color: #1F1F1F;
+    color: lightgray;
+    font-family: Consolas,monaco,monospace;
+}
+
+h1{
+    background-color: #3a2f3d;
+    padding: 1.5rem;
+}
+
+h2{
+    background-color: #383838;
+    padding: 1rem;
+}
+
+h3{
+    background-color: #2e2d2d;
+    padding: 1rem;
+}
+
+p{
+    line-height: 1.5;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #8f54a0 #454545;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #454545;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #8f54a0;
+    border-radius: 10px;
+    border: 3px solid #545454;
+}

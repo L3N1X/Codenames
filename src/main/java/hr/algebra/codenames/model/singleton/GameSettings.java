@@ -1,25 +1,29 @@
 package hr.algebra.codenames.model.singleton;
 
-public class GameSettings {
+import java.io.Serializable;
+
+public class GameSettings implements Serializable {
     private GameSettings() {}
 
     //region Resource paths
-    public static final String RED_TEAM_IMAGE_PATH = "..\\assets\\red_player.png";
-    public static final String BLUE_TEAM_IMAGE_PATH = "..\\assets\\blue_player.png";
+    public static final String RED_TEAM_IMAGE_PATH = "assets/red_player.png";
+    public static final String BLUE_TEAM_IMAGE_PATH = "assets/player_blue.png";
     //endregion
 
     //region FXML paths
     public static final String SPYMASTER_VIEW_PATH = "view/spymasterGameScreen.fxml";
     public static final String OPERATIVE_VIEW_PATH = "view/operativeGameScreen.fxml";
     public static final String START_VIEW_PATH = "view/startGameScreen.fxml";
-    public static final String SCORE_VIEW_PATH = "view/turnsGameScreen.fxml";
-    public static final String GAME_LOGS_VIEW_PATH = "view/logsGameScreen.fxml";
+    public static final String HIGHSCORE_VIEW_PATH = "view/highscoreGameScreen.fxml";
+    public static final String LOGS_VIEW_PATH = "view/logsGameScreen.fxml";
     public static final String GAME_WINNER_VIEW_PATH = "view/winnerGameScreen.fxml";
     //endregion
 
     //region Game texts
 
     public static final String GAME_TITLE = "Codenames Java Edition v0.321";
+    public static final String LOGS_TITLE = "Game logs";
+    public static final String HIGHSCORE_TITLE = "Highscore stats";
 
     //endregion
 

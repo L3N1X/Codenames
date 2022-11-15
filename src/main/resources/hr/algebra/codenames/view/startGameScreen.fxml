@@ -21,12 +21,13 @@
         <menus>
           <Menu mnemonicParsing="false" text="Game stats">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#logsClicked" text="Logs" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Rules">
+          <Menu mnemonicParsing="false" text="Action">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" onAction="#saveGame" text="Save" />
+                  <MenuItem mnemonicParsing="false" onAction="#loadGame" text="Load save" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="About">

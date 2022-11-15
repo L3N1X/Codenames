@@ -2,7 +2,9 @@ package hr.algebra.codenames.model;
 
 import hr.algebra.codenames.model.enums.CardColor;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable {
     private final String word;
     private final CardColor color;
     private boolean isGuessed;
