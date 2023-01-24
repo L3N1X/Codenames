@@ -1,5 +1,6 @@
 package hr.algebra.codenames.controller;
 
+import hr.algebra.codenames.model.SerializableTurnLog;
 import hr.algebra.codenames.model.TurnLog;
 import hr.algebra.codenames.model.singleton.GameLogger;
 import javafx.collections.FXCollections;
@@ -13,15 +14,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class LogsGameController implements Initializable {
 
     //region FXML controls
     @FXML
     private TableView<TurnLog> tblvLogs;
-    @FXML
-    private TableColumn<TurnLog, String> tcTime;
     @FXML
     private TableColumn<TurnLog, String> tcTeam;
     @FXML
@@ -42,14 +43,18 @@ public class LogsGameController implements Initializable {
     private Button btnBackToGame;
     //endregion
 
-    private ObservableList<TurnLog> logs;
+    private ObservableList<TurnLog> turnLogs;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.initializeTableCells();
-        logs = FXCollections.observableArrayList(GameLogger.getInstance().getTurnLogs());
+        List<SerializableTurnLog> serializableTurnLogs =  GameLogger.getInstance().getTurnLogs();
+        turnLogs = FXCollections.observableArrayList(
+                serializableTurnLogs.stream()
+                        .map(TurnLog::fromSerializableTurnLog)
+                        .collect(Collectors.toList()));
         this.showLogs();
-        if(!logs.isEmpty())
+        if(!turnLogs.isEmpty())
             tblvLogs.getSelectionModel().select(0);
     }
 
@@ -60,7 +65,6 @@ public class LogsGameController implements Initializable {
     }
 
     private void initializeTableCells() {
-        this.tcTime.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
         this.tcTeam.setCellValueFactory(new PropertyValueFactory<>("team"));
         this.tcClue.setCellValueFactory(new PropertyValueFactory<>("clue"));
         this.tcGuessedWords.setCellValueFactory(new PropertyValueFactory<>("guessedWords"));
@@ -72,6 +76,6 @@ public class LogsGameController implements Initializable {
     }
 
     private void showLogs() {
-        this.tblvLogs.setItems(this.logs);
+        this.tblvLogs.setItems(this.turnLogs);
     }
 }

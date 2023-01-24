@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="908.0" prefWidth="1447.0" styleClass="background_gradient" stylesheets="@../style/codenamesStyles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.codenames.controller.SpymasterGameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="908.0" prefWidth="1447.0" styleClass="background_gradient" stylesheets="@../style/codenamesStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.codenames.controller.SpymasterGameController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -390,84 +391,109 @@
                   <Font name="Dubai Bold" size="24.0" />
                </font>
             </Button>
-            <Label id="lblTimer" fx:id="lblCountdown" alignment="CENTER" prefHeight="85.0" prefWidth="96.0" text="30s" textFill="#ffe500">
-               <font>
-                  <Font name="Dubai Bold" size="48.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="25.0" />
-               </HBox.margin>
-            </Label>
          </children>
       </HBox>
    </bottom>
    <left>
-      <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="780.0" prefWidth="239.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="782.0" prefWidth="257.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="428.0" prefWidth="279.0" styleClass="red_pane">
+            <VBox prefHeight="783.0" prefWidth="181.0">
                <children>
-                  <ImageView fitHeight="140.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                     <image>
-                        <Image url="@../assets/red_player.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Operative" textFill="#ff4848">
-                     <font>
-                        <Font name="Dubai Regular" size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label id="lblRedOperative" fx:id="lblRedOperative" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Rea" textFill="WHITE">
-                     <font>
-                        <Font name="Dubai Bold" size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Spymaster" textFill="#ff4848">
-                     <font>
-                        <Font name="Dubai Regular" size="20.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label id="lblRedSpymaster" fx:id="lblRedSpymaster" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Leon (You)" textFill="WHITE">
-                     <font>
-                        <Font name="Dubai Bold" size="20.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets right="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
+                  <VBox prefHeight="428.0" prefWidth="227.0" styleClass="red_pane">
                      <children>
-                        <Text id="lblRedTeamPoints" fx:id="lblRedPoints" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="9">
+                        <ImageView fitHeight="140.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../assets/red_player.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Operative" textFill="#ff4848">
                            <font>
-                              <Font name="System Bold" size="100.0" />
+                              <Font name="Dubai Regular" size="20.0" />
                            </font>
-                        </Text>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label id="lblRedOperative" fx:id="lblRedOperative" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Rea" textFill="WHITE">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Spymaster" textFill="#ff4848">
+                           <font>
+                              <Font name="Dubai Regular" size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label id="lblRedSpymaster" fx:id="lblRedSpymaster" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Leon (You)" textFill="WHITE">
+                           <font>
+                              <Font name="Dubai Bold" size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets right="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                        <HBox alignment="CENTER" prefHeight="82.0" prefWidth="239.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <Text id="lblRedTeamPoints" fx:id="lblRedPoints" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="9" wrappingWidth="65.51953125">
+                                 <font>
+                                    <Font name="System Bold" size="100.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <TextArea fx:id="taChat" editable="false" prefHeight="269.0" prefWidth="239.0" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Dubai Bold" size="15.0" />
+                     </font>
+                  </TextArea>
+                  <HBox prefHeight="62.0" prefWidth="239.0">
+                     <children>
+                        <TextField fx:id="tfMessage" alignment="CENTER" prefHeight="35.0" prefWidth="179.0" promptText="Type a message..." styleClass="text-input-transparent">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Dubai Bold" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="btnSendMessage" mnemonicParsing="false" onAction="#sendMessage" prefHeight="38.0" prefWidth="51.0" text="SEND">
+                           <HBox.margin>
+                              <Insets left="8.0" top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Dubai Bold" size="12.0" />
+                           </font>
+                        </Button>
                      </children>
                   </HBox>
                </children>
-               <HBox.margin>
-                  <Insets bottom="200.0" left="10.0" right="10.0" top="155.0" />
-               </HBox.margin>
             </VBox>
          </children>
       </HBox>
@@ -475,70 +501,89 @@
    <right>
       <HBox alignment="CENTER" prefHeight="780.0" prefWidth="250.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="428.0" prefWidth="251.0" styleClass="blue_pane">
+            <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <ImageView fitHeight="139.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                     <image>
-                        <Image url="@../assets/player_blue.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Operative" textFill="#41fffc">
-                     <font>
-                        <Font name="Dubai Regular" size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label id="lblBlueOperative" fx:id="lblBlueOperative" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Aleksander" textFill="WHITE">
-                     <font>
-                        <Font name="Dubai Bold" size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Spymaster" textFill="#41ffff">
-                     <font>
-                        <Font name="Dubai Regular" size="20.0" />
-                     </font>
+                  <VBox prefHeight="340.0" prefWidth="232.0" styleClass="blue_pane">
+                     <children>
+                        <ImageView fitHeight="139.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../assets/player_blue.png" />
+                           </image>
+                        </ImageView>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <VBox prefHeight="274.0" prefWidth="237.0">
+                                 <children>
+                                    <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="143.0" text="Operative" textFill="#41fffc">
+                                       <font>
+                                          <Font name="Dubai Regular" size="20.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label id="lblBlueOperative" fx:id="lblBlueOperative" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Aleksander" textFill="WHITE">
+                                       <font>
+                                          <Font name="Dubai Bold" size="20.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Spymaster" textFill="#41ffff">
+                                       <font>
+                                          <Font name="Dubai Regular" size="20.0" />
+                                       </font>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <VBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label id="lblBlueSpymaster" fx:id="lblBlueSpymaster" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Daniel" textFill="WHITE">
+                                       <font>
+                                          <Font name="Dubai Bold" size="20.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets right="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Text id="lblBlueTeamPoints" fx:id="lblBluePoints" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER" wrappingWidth="231.38624572753906">
+                                       <font>
+                                          <Font name="System Bold" size="100.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets top="20.0" />
                      </VBox.margin>
-                  </Label>
-                  <Label id="lblBlueSpymaster" fx:id="lblBlueSpymaster" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Daniel" textFill="WHITE">
+                  </VBox>
+                  <TextArea fx:id="taInfo" editable="false" prefHeight="311.0" prefWidth="232.0" wrapText="true">
                      <font>
-                        <Font name="Dubai Bold" size="20.0" />
+                        <Font name="Dubai Bold" size="15.0" />
                      </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
                      <VBox.margin>
-                        <Insets right="10.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
-                  </Label>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <children>
-                        <Text id="lblBlueTeamPoints" fx:id="lblBluePoints" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
-                           <font>
-                              <Font name="System Bold" size="100.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </HBox>
+                  </TextArea>
                </children>
-               <HBox.margin>
-                  <Insets bottom="200.0" left="10.0" right="10.0" top="155.0" />
-               </HBox.margin>
             </VBox>
          </children>
       </HBox>

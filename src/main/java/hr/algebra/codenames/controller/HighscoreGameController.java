@@ -2,6 +2,7 @@ package hr.algebra.codenames.controller;
 
 import hr.algebra.codenames.CodenamesApplication;
 import hr.algebra.codenames.model.GameHolder;
+import hr.algebra.codenames.model.SerializableTurnLog;
 import hr.algebra.codenames.model.TurnLog;
 import hr.algebra.codenames.model.singleton.GameLogger;
 import hr.algebra.codenames.model.singleton.GameSettings;
@@ -52,8 +53,8 @@ public class HighscoreGameController implements Initializable {
     private void initializeUI() {
         Integer redTeamWins = 0;
         Integer blueTeamWins = 0;
-        List<TurnLog> turns = GameLogger.getInstance().getTurnLogs();
-        for (TurnLog log : turns) {
+        List<SerializableTurnLog> turns = GameLogger.getInstance().getTurnLogs();
+        for (SerializableTurnLog log : turns) {
             if (log.getWinnerTeam() != null) {
                 switch (log.getWinnerTeam().getTeamColor()) {
                     case Red -> redTeamWins++;
@@ -75,8 +76,8 @@ public class HighscoreGameController implements Initializable {
             this.lblPlayerTwo.getStyleClass().add(GameSettings.RED_TEXT_CSS);
             this.lblWins.getStyleClass().add(GameSettings.RED_TEXT_CSS);
             this.lblTeam.setText("Red Team");
-            this.lblPlayerOne.setText(GameHolder.GAMESTATE.getRedTeam().getSpymaster().getName());
-            this.lblPlayerTwo.setText(GameHolder.GAMESTATE.getRedTeam().getOperative().getName());
+            this.lblPlayerOne.setText(GameHolder.GAMESTATE.getValue().getRedTeam().getSpymaster().getName());
+            this.lblPlayerTwo.setText(GameHolder.GAMESTATE.getValue().getRedTeam().getOperative().getName());
             this.lblWins.setText("Wins: " + redTeamWins);
         } else {
             URL resource = CodenamesApplication.class.getResource(GameSettings.BLUE_TEAM_IMAGE_PATH);
@@ -87,8 +88,8 @@ public class HighscoreGameController implements Initializable {
             this.lblPlayerTwo.getStyleClass().add(GameSettings.BLUE_TEXT_CSS);
             this.lblWins.getStyleClass().add(GameSettings.BLUE_TEXT_CSS);
             this.lblTeam.setText("Blue Team");
-            this.lblPlayerOne.setText(GameHolder.GAMESTATE.getBlueTeam().getSpymaster().getName());
-            this.lblPlayerTwo.setText(GameHolder.GAMESTATE.getBlueTeam().getOperative().getName());
+            this.lblPlayerOne.setText(GameHolder.GAMESTATE.getValue().getBlueTeam().getSpymaster().getName());
+            this.lblPlayerTwo.setText(GameHolder.GAMESTATE.getValue().getBlueTeam().getOperative().getName());
             this.lblWins.setText("Wins: " + redTeamWins);
         }
     }

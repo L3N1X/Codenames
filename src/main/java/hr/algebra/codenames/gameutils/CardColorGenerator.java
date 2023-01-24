@@ -29,8 +29,8 @@ public class CardColorGenerator {
             killerCards.add(CardColor.Killer);
         List<CardColor> redBlueCards = Stream.concat(redCards.stream(), blueCards.stream()).toList();
         List<CardColor> passangerKillerCards = Stream.concat(passangerCards.stream(), killerCards.stream()).toList();
-        List<CardColor> cards = new ArrayList<>(Stream.concat(redBlueCards.stream(), passangerKillerCards.stream()).toList());
-        Collections.shuffle(cards);
-        return cards;
+        List<CardColor> cardColors = new ArrayList<>(Stream.concat(redBlueCards.stream(), passangerKillerCards.stream()).toList());
+        Collections.shuffle(cardColors);
+        return cardColors;
     }
 }

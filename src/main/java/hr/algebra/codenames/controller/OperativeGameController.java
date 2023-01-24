@@ -3,28 +3,43 @@ package hr.algebra.codenames.controller;
 import hr.algebra.codenames.CodenamesApplication;
 import hr.algebra.codenames.model.Card;
 import hr.algebra.codenames.model.GameHolder;
+import hr.algebra.codenames.model.actions.ToSpymasterActionObject;
 import hr.algebra.codenames.model.enums.CardColor;
+import hr.algebra.codenames.model.singleton.GameLogger;
 import hr.algebra.codenames.model.singleton.GameState;
 import hr.algebra.codenames.model.singleton.GameSettings;
+import hr.algebra.codenames.networking.messaging.Message;
+import hr.algebra.codenames.networking.response.StatusCode;
+import hr.algebra.codenames.networking.utils.NetworkUtils;
+import hr.algebra.codenames.rmi.server.ChatService;
 import hr.algebra.codenames.utils.DialogUtils;
 import hr.algebra.codenames.utils.FXMLLoaderUtils;
-import javafx.application.Platform;
+import hr.algebra.jndi.ServerConfigurationKey;
+import hr.algebra.jndi.helper.JndiHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.naming.NamingException;
 import java.io.*;
+import java.net.URL;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.*;
-import java.util.Timer;
 
-public class OperativeGameController {
+public class OperativeGameController implements Initializable {
 
     //region FXML controls
     @FXML
@@ -35,8 +50,6 @@ public class OperativeGameController {
     private Label lblBlueOperative;
     @FXML
     private Label lblBlueSpymaster;
-    @FXML
-    private Label lblCountdown;
     @FXML
     private Label lblCardCount;
     @FXML
@@ -51,16 +64,40 @@ public class OperativeGameController {
     private Button btnConfirm;
     @FXML
     private GridPane cardsGrid;
+    @FXML
+    private Button btnSendMessage;
+    @FXML
+    private TextField tfMessage;
+    @FXML
+    private TextArea taChat;
+    @FXML
+    private TextArea taInfo;
     //endregion
 
     //region Private variables
-    private HashMap<String, Card> cards;
-    private int secondsLeft = GameSettings.OPERATIVE_TURN_DURATION;;
+    private HashMap<String, Card> cardsMap;
     private Integer selectedCardCount;
     private List<String> selectedWords;
     //endregion
 
     //region Event handlers
+
+    //RMI
+    private ChatService stub = null;
+
+    //RMI
+
+
+    @FXML
+    private void sendMessage(ActionEvent actionEvent){
+        try {
+            this.stub.sendMessage(GameHolder.YOU_PLAYER.getName() + " > " + this.tfMessage.getText());
+            this.tfMessage.setText("");
+            NetworkUtils.SendMessage(new Message(StatusCode.CHAT_MESSAGE, null), GameHolder.SERVER_OUTPUT);
+        } catch (IOException e) {
+            DialogUtils.showErrorDialog("[ERROR]", "RMI Service not operational", "Can't set messages");
+        }
+    }
 
     @FXML
     private void loadGame(ActionEvent actionEvent) {
@@ -71,11 +108,10 @@ public class OperativeGameController {
             try {
                 FileInputStream fs = new FileInputStream(file);
                 ObjectInputStream in = new ObjectInputStream(fs);
-                // Method for deserialization of object
-                GameHolder.GAMESTATE =  (GameState) in.readObject();
+                GameHolder.GAMESTATE.setValue((GameState) in.readObject());
                 in.close();
                 fs.close();
-                if(GameHolder.GAMESTATE.isOperativeTurn()){
+                if(GameHolder.GAMESTATE.getValue().isOperativeTurn()){
                     FXMLLoaderUtils.loadScene(CodenamesApplication.getMainStage(),
                             GameSettings.GAME_TITLE,
                             GameSettings.OPERATIVE_VIEW_PATH);
@@ -111,10 +147,15 @@ public class OperativeGameController {
 
     @FXML
     private void confirmSelection(ActionEvent actionEvent){
-        goToNextTurn();
+        goToSpymaster();
     }
 
     private void cardSelected(ActionEvent actionEvent){
+
+        //If it's not your turn, don't do anything!
+        if(!GameHolder.GAMESTATE.getValue().isYourTurn(GameHolder.YOU_PLAYER)){
+            return;
+        }
         Button selectedCard = (Button)actionEvent.getSource();
         //Operative selected already guessed card, nothing happens
         if(selectedCard.getText().isEmpty())
@@ -145,16 +186,37 @@ public class OperativeGameController {
             this.lblSelectedWordCount.getStyleClass().add(GameSettings.GREEN_TEXT_CSS);
         }
     }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            Registry registry = LocateRegistry.getRegistry(
+                    "localhost", Integer.parseInt(JndiHelper.getConfigurationParameter(ServerConfigurationKey.RMI_SERVER_PORT.getKey())));
+            stub = (ChatService) registry.lookup(ChatService.REMOTE_OBJECT_NAME);
+        } catch (RemoteException | NotBoundException e) {
+            e.printStackTrace();
+            System.err.println("[Client]: RMI service is not active...");
+        } catch (NamingException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        refreshUI();
+    }
 
-    @FXML
-    protected void initialize() {
+    public void refreshUI() {
+
+        this.selectedCardCount = 0;
         this.selectedWords = new ArrayList<>();
         this.btnConfirm.setDisable(true);
         initializeLabels();
         updateCardCounter(0);
         initializeCards();
-        startCountdown();
+        this.taInfo.setText(GameHolder.GAMESTATE.getValue().getInfoHistory());
+
+        if (GameHolder.GAMESTATE.getValue().getHasWinner()) {
+            this.loadWinnerView();
+        }
+
     }
+
     @FXML
     private void highscoreClicked(ActionEvent actionEvent){
         try {
@@ -175,58 +237,100 @@ public class OperativeGameController {
     //endregion
 
     public OperativeGameController() {
-        this.selectedCardCount = 0;
+        GameHolder.GAMESTATE.addListener((observable, oldValue, newValue) -> {
+            System.out.println("UI refreshed!");
+
+            if(GameHolder.GAMESTATE.getValue().getLastTurnLog() != null){
+                GameLogger.getInstance().addTurnLog(GameHolder.GAMESTATE.getValue().getLastTurnLog());
+            }
+
+            refreshUI();
+        });
+        GameHolder.CHAT_FLAG.addListener((observable, oldValue, newValue) -> {
+            System.out.println("Chat area refreshed!");
+            refreshChat();
+        });
     }
+
+    private void refreshChat() {
+        try {
+            String chatHistory = String.join("\n", stub.getChatHistory());
+            this.taChat.setText(chatHistory);
+        } catch (RemoteException e) {
+            System.out.println("Failed to load chat....");
+        }
+    }
+
     private boolean selectedWordCountEqualToGiven(){
-        return Objects.equals(this.selectedCardCount, GameHolder.GAMESTATE.getCurrentGivenWordCount());
+        return Objects.equals(this.selectedCardCount, GameHolder.GAMESTATE.getValue().getCurrentGivenWordCount());
     }
 
     private void initializeLabels() {
-        this.lblCardCount.setText(GameHolder.GAMESTATE.getCurrentGivenWordCount().toString());
-        this.lblClue.setText(GameHolder.GAMESTATE.getCurrentTeam().getSpymaster().getName() + " gave clue:   '" + GameHolder.GAMESTATE.getCurrentClue().toUpperCase() + "'");
-        this.lblRedOperative.setText(GameHolder.GAMESTATE.getRedTeam().getOperative().getName());
-        this.lblRedSpymaster.setText(GameHolder.GAMESTATE.getRedTeam().getSpymaster().getName());
-        this.lblBlueOperative.setText(GameHolder.GAMESTATE.getBlueTeam().getOperative().getName());
-        this.lblBlueSpymaster.setText(GameHolder.GAMESTATE.getBlueTeam().getSpymaster().getName());
-        if(GameHolder.GAMESTATE.getCurrentTeam().getTeamColor() == CardColor.Red)
+
+        this.lblClue.getStyleClass().removeAll(GameSettings.GREEN_TEXT_CSS);
+        this.lblCardCount.getStyleClass().removeAll(GameSettings.GREEN_TEXT_CSS);
+
+        this.lblCardCount.setText("");
+
+        if(!GameHolder.GAMESTATE.getValue().isOperativeTurn() && !GameHolder.GAMESTATE.getValue().isYourTurn(GameHolder.YOU_PLAYER)){
+            //this.lblCardCount.setText("");
+            this.lblClue.setText("Waiting for " + GameHolder.GAMESTATE.getValue().getCurrentPlayer().getName() + " to give clue.");
+        } else if (GameHolder.GAMESTATE.getValue().isOperativeTurn() && !GameHolder.GAMESTATE.getValue().isYourTurn(GameHolder.YOU_PLAYER)) {
+            this.lblCardCount.setText(GameHolder.GAMESTATE.getValue().getCurrentGivenWordCount().toString());
+            this.lblClue.setText(GameHolder.GAMESTATE.getValue().getCurrentTeam().getSpymaster().getName() + " gave clue:   '" + GameHolder.GAMESTATE.getValue().getCurrentClue().toUpperCase() + "'");
+        } else if (GameHolder.GAMESTATE.getValue().isOperativeTurn() && GameHolder.GAMESTATE.getValue().isYourTurn(GameHolder.YOU_PLAYER)) {
+            this.lblCardCount.setText(GameHolder.GAMESTATE.getValue().getCurrentGivenWordCount().toString());
+            this.lblClue.setText(GameHolder.GAMESTATE.getValue().getCurrentTeam().getSpymaster().getName() + " gave clue:   '" + GameHolder.GAMESTATE.getValue().getCurrentClue().toUpperCase() + "'");
+        } else {
+            System.out.println("Else....");
+        }
+
+        this.lblRedOperative.setText(GameHolder.GAMESTATE.getValue().getRedTeam().getOperative().getName());
+        this.lblRedSpymaster.setText(GameHolder.GAMESTATE.getValue().getRedTeam().getSpymaster().getName());
+        this.lblBlueOperative.setText(GameHolder.GAMESTATE.getValue().getBlueTeam().getOperative().getName());
+        this.lblBlueSpymaster.setText(GameHolder.GAMESTATE.getValue().getBlueTeam().getSpymaster().getName());
+
+        if(GameHolder.YOU_PLAYER.getCardColor() == CardColor.Red) {
             this.lblRedOperative.setText(this.lblRedOperative.getText() + " (YOU)");
-        else
+        } else {
             this.lblBlueOperative.setText(this.lblBlueOperative.getText() + " (YOU)");
-        this.lblRedPoints.setText(String.valueOf(GameHolder.GAMESTATE.getRedTeam().getPoints()));
-        this.lblBluePoints.setText(String.valueOf(GameHolder.GAMESTATE.getBlueTeam().getPoints()));
+        }
+
+        this.lblRedPoints.setText(String.valueOf(GameHolder.GAMESTATE.getValue().getRedTeam().getPoints()));
+        this.lblBluePoints.setText(String.valueOf(GameHolder.GAMESTATE.getValue().getBlueTeam().getPoints()));
     }
 
     /**
      * Initializes physical card grid
      */
     private void initializeCards() {
-        List<Button> physicalCards = new ArrayList<>();
+        List<Button> cardButtons = new ArrayList<>();
         for(Node component : this.cardsGrid.getChildren()){
             if(component instanceof Button){
-                physicalCards.add((Button)component);
+                cardButtons.add((Button)component);
                 ((Button)component).setOnAction(this::cardSelected);
             }
         }
-        this.cards = GameHolder.GAMESTATE.getCardsMap();
+        this.cardsMap = GameHolder.GAMESTATE.getValue().getCardsMap();
         int i = 0;
-        for (Card card : cards.values()) {
-            Button physicalCard = physicalCards.get(i);
-            physicalCard.setText(card.getWord());
-            physicalCard.getStyleClass().clear();
+        for (Card card : cardsMap.values()) {
+            Button cardButton = cardButtons.get(i);
+            cardButton.setText(card.getWord());
+            cardButton.getStyleClass().clear();
             if(card.getIsGuessed()){
-                physicalCard.setText("");
+                cardButton.setText("");
                 if(card.getColor() == CardColor.Red)
-                    physicalCard.getStyleClass().addAll(GameSettings.CARD_RED_GUESSED_CSS);
+                    cardButton.getStyleClass().addAll(GameSettings.CARD_RED_GUESSED_CSS);
                 else if (card.getColor() == CardColor.Blue)
-                    physicalCard.getStyleClass().addAll(GameSettings.CARD_BLUE_GUESSED_CSS);
+                    cardButton.getStyleClass().addAll(GameSettings.CARD_BLUE_GUESSED_CSS);
                 else if (card.getColor() == CardColor.Passanger)
-                    physicalCard.getStyleClass().addAll(GameSettings.CARD_PASSANGER_GUESSED_CSS);
+                    cardButton.getStyleClass().addAll(GameSettings.CARD_PASSANGER_GUESSED_CSS);
                 else if (card.getColor() == CardColor.Killer)
-                    physicalCard.getStyleClass().addAll(GameSettings.CARD_KILLER_GUESSED_CSS);
+                    cardButton.getStyleClass().addAll(GameSettings.CARD_KILLER_GUESSED_CSS);
             } else {
-                physicalCard.getStyleClass().add(GameSettings.CARD_DEFAULT_CSS);
+                cardButton.getStyleClass().add(GameSettings.CARD_DEFAULT_CSS);
             }
-            physicalCard.setTextAlignment(TextAlignment.CENTER);
+            cardButton.setTextAlignment(TextAlignment.CENTER);
             i++;
         }
     }
@@ -234,55 +338,17 @@ public class OperativeGameController {
         this.selectedCardCount += delta;
         this.lblSelectedWordCount.setText(this.selectedCardCount.toString());
     }
-
-    private void updateCountdownLabel() {
-        lblCountdown.setText(secondsLeft + "s");
-        if(secondsLeft <= 15)
-            lblCountdown.getStyleClass().add(GameSettings.RED_TEXT_CSS);
-        if(secondsLeft == 0){
-            goToNextTurn();
-        }
-    }
-    private void goToNextTurn(){
-        this.secondsLeft = 0;
-        GameHolder.GAMESTATE.toNextTeamTurn(this.selectedWords);
-        if(GameHolder.GAMESTATE.getHasWinner()){
-            this.loadWinnerView();
-        } else {
-            this.loadSpymasterView();
-        }
-    }
-
-    private void startCountdown() {
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    if(secondsLeft == 0)
-                        cancel();
-                    secondsLeft--;
-                    updateCountdownLabel();
-                });
+    private void goToSpymaster(){
+        if(GameHolder.GAMESTATE.getValue().isYourTurn(GameHolder.YOU_PLAYER)){
+            GameHolder.GAMESTATE.getValue().toSpymasterAction(new ToSpymasterActionObject(this.selectedWords));
+            try {
+                NetworkUtils.SendMessage(new Message(StatusCode.GAME_MOVE, GameHolder.GAMESTATE.getValue()), GameHolder.SERVER_OUTPUT);
+            } catch (IOException e) {
+                DialogUtils.showErrorDialog("Fatal application error", "Failed to contact the server", "Closing Codenames...");
+                System.exit(1);
             }
-        };
-        Timer timer = new Timer();
-        timer.schedule(timerTask, 0 , 1000);
-    }
-
-    /**
-     * Loads spymaster view (if there is no winner)
-     */
-    private void loadSpymasterView() {
-        try {
-            FXMLLoaderUtils.loadScene(CodenamesApplication.getMainStage(), GameSettings.GAME_TITLE, GameSettings.SPYMASTER_VIEW_PATH);
-        } catch (IOException e) {
-            DialogUtils.showFatalErrorDialog();
         }
     }
-
-    /**
-     * Loads winner view (if there is a winner)
-     */
     private void loadWinnerView() {
         try {
             FXMLLoaderUtils.loadScene(CodenamesApplication.getMainStage(),

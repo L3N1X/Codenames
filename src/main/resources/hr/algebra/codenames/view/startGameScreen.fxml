@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="908.0" prefWidth="1447.0" styleClass="background_gradient" stylesheets="@../style/codenamesStyles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.codenames.controller.StartGameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="908.0" prefWidth="1447.0" styleClass="background_gradient" stylesheets="@../style/codenamesStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.codenames.controller.StartGameController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -41,7 +41,7 @@
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
-            <HBox alignment="CENTER" prefHeight="147.0" prefWidth="1321.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="143.0" prefWidth="1447.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="82.0" fitWidth="570.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -52,11 +52,11 @@
             </HBox>
          </top>
          <bottom>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="84.0" prefWidth="1447.0" BorderPane.alignment="CENTER">
                <children>
                   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="435.0">
                      <children>
-                        <Label prefHeight="44.0" prefWidth="402.0" text="VLAADA CHVATIL   |   LEON KRUŠLIN" textFill="WHITE">
+                        <Label prefHeight="31.0" prefWidth="402.0" text="VLAADA CHVATIL   |   LEON KRUŠLIN" textFill="WHITE">
                            <font>
                               <Font name="Dubai Bold" size="24.0" />
                            </font>
@@ -67,75 +67,79 @@
             </HBox>
          </bottom>
          <center>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="767.0" prefWidth="1447.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" prefHeight="455.0" prefWidth="1447.0">
+                  <HBox alignment="CENTER" prefHeight="501.0" prefWidth="1447.0">
                      <VBox.margin>
                         <Insets bottom="80.0" />
                      </VBox.margin>
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="300.0" styleClass="red_pane">
+                        <VBox prefHeight="545.0" prefWidth="310.0" styleClass="black_pane">
                            <children>
-                              <ImageView fitHeight="185.0" fitWidth="291.0" pickOnBounds="true" preserveRatio="true">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                                 <image>
-                                    <Image url="@../assets/red_player.png" />
-                                 </image>
-                              </ImageView>
-                              <TextField fx:id="tfRedOperativeName" alignment="CENTER" prefHeight="44.0" prefWidth="331.0" promptText="Operative name..." styleClass="text-input-transparent">
+                              <HBox prefHeight="25.0" prefWidth="310.0" />
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fitHeight="172.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/codenames_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <TextField fx:id="tfPlayerName" alignment="CENTER" prefHeight="44.0" prefWidth="331.0" promptText="Your name..." styleClass="text-input-transparent">
                                  <font>
-                                    <Font name="Dubai Regular" size="24.0" />
+                                    <Font name="Dubai Bold" size="20.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                               </TextField>
-                              <TextField id="tfRedSpymasterName" fx:id="tfRedSpymasterName" alignment="CENTER" prefHeight="44.0" prefWidth="331.0" promptText="Spymaster name..." styleClass="text-input-transparent">
-                                 <font>
-                                    <Font name="Dubai Regular" size="24.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </TextField>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="455.0" prefWidth="300.0" styleClass="blue_pane">
-                           <HBox.margin>
-                              <Insets left="120.0" />
-                           </HBox.margin>
-                           <children>
-                              <ImageView fitHeight="183.0" fitWidth="294.0" pickOnBounds="true" preserveRatio="true">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                                 <image>
-                                    <Image url="@../assets/player_blue.png" />
-                                 </image>
-                              </ImageView>
-                              <TextField id="tfBlueOperativeName" fx:id="tfBlueOperativeName" alignment="CENTER" prefHeight="44.0" prefWidth="331.0" promptText="Operative name..." styleClass="text-input-transparent">
-                                 <font>
-                                    <Font name="Dubai Regular" size="24.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <TextField id="tfBlueSpymasterName" fx:id="tfBlueSpymasterName" alignment="CENTER" prefHeight="44.0" prefWidth="331.0" promptText="Spymaster name..." styleClass="text-input-transparent">
-                                 <font>
-                                    <Font name="Dubai Regular" size="24.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </TextField>
+                              <HBox alignment="CENTER" prefHeight="38.0" prefWidth="310.0">
+                                 <children>
+                                    <Button fx:id="btnRedTeam" mnemonicParsing="false" onAction="#redTeamSelected" prefHeight="26.0" prefWidth="269.0" styleClass="btn_red" text="RED TEAM" textFill="WHITE">
+                                       <font>
+                                          <Font name="Dubai Bold" size="13.0" />
+                                       </font></Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="48.0" prefWidth="310.0">
+                                 <children>
+                                    <Button fx:id="btnBlueTeam" mnemonicParsing="false" onAction="#blueTeamSelected" prefHeight="5.0" prefWidth="270.0" styleClass="btn_blue" text="BLUE TEAM" textFill="WHITE">
+                                       <font>
+                                          <Font name="Dubai Bold" size="13.0" />
+                                       </font></Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="48.0" prefWidth="310.0">
+                                 <children>
+                                    <Button fx:id="btnSpymaster" mnemonicParsing="false" onAction="#spymasterSelected" prefHeight="0.0" prefWidth="190.0" text="SPYMASTER">
+                                       <font>
+                                          <Font name="Dubai Bold" size="13.0" />
+                                       </font></Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="42.0" prefWidth="310.0">
+                                 <children>
+                                    <Button fx:id="btnOperative" mnemonicParsing="false" onAction="#operativeSelected" prefHeight="16.0" prefWidth="190.0" text="OPERATIVE">
+                                       <font>
+                                          <Font name="Dubai Bold" size="13.0" />
+                                       </font></Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="49.0" prefWidth="310.0">
+                                 <children>
+                                    <Label fx:id="lbInformation" alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="294.0" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font name="Dubai Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <Button id="btnStartGame" fx:id="btnStartGame" mnemonicParsing="false" onAction="#btnStartGameClick" prefHeight="51.0" prefWidth="746.0" styleClass="btn_clue" text="START GAME">
+                  <Button id="btnStartGame" fx:id="btnStartGame" mnemonicParsing="false" onAction="#btnStartGameClick" prefHeight="37.0" prefWidth="746.0" styleClass="btn_clue" text="START GAME">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>

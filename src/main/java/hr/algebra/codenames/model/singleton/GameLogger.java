@@ -1,5 +1,6 @@
 package hr.algebra.codenames.model.singleton;
 
+import hr.algebra.codenames.model.SerializableTurnLog;
 import hr.algebra.codenames.model.TurnLog;
 
 import java.io.Serial;
@@ -8,8 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GameLogger implements Serializable {
-    // TODO: 8.11.2022. Game logger is serialized separately from GameState
-    private final List<TurnLog> turnLogs;
+    private final List<SerializableTurnLog> turnLogs;
     private static GameLogger instance;
     private GameLogger(){
         this.turnLogs = new LinkedList<>();
@@ -26,11 +26,11 @@ public class GameLogger implements Serializable {
         return getInstance( );
     }
 
-    public List<TurnLog> getTurnLogs() {
+    public List<SerializableTurnLog> getTurnLogs() {
         return new LinkedList<>(this.turnLogs);
     }
 
-    public void addTurnLog(TurnLog turnLog){
+    public void addTurnLog(SerializableTurnLog turnLog){
         this.turnLogs.add(turnLog);
     }
 }

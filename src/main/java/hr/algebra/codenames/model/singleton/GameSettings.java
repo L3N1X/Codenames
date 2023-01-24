@@ -8,6 +8,7 @@ public class GameSettings implements Serializable {
     //region Resource paths
     public static final String RED_TEAM_IMAGE_PATH = "assets/red_player.png";
     public static final String BLUE_TEAM_IMAGE_PATH = "assets/player_blue.png";
+    public static final String ICON_PATH = "assets/codenames_icon.png";
     //endregion
 
     //region FXML paths
@@ -21,7 +22,7 @@ public class GameSettings implements Serializable {
 
     //region Game texts
 
-    public static final String GAME_TITLE = "Codenames Java Edition v0.321";
+    public static final String GAME_TITLE = "Codenames Java Edition BETA";
     public static final String LOGS_TITLE = "Game logs";
     public static final String HIGHSCORE_TITLE = "Highscore stats";
 
@@ -34,6 +35,7 @@ public class GameSettings implements Serializable {
     public static final int KILLER_CARD_COUNT = 1;
     public static final int SPYMASTER_TURN_DURATION = 60;
     public static final int OPERATIVE_TURN_DURATION = 60;
+    public static final int PLAYER_COUNT = 4;
     //endregion
 
     //region Game CSS classes constants
@@ -52,5 +54,8 @@ public class GameSettings implements Serializable {
     public static final String BLUE_TEXT_CSS = "blue";
     public static final String BLUE_PANE_CSS = "blue_pane";
     public static final String RED_PANE_CSS = "red_pane";
+    public static final String RED_BUTTON_CSS = "btn_red";
+    public static final String BLUE_BUTTON_CSS = "btn_blue";
+    public static final String GREY_BUTTON_CSS = "btn_grey";
     //endregion
 }

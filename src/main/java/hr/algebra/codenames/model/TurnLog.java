@@ -4,15 +4,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+
 
 public class TurnLog implements Serializable {
 
     //region private variables
-    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-    private final LocalDateTime dateTime;
     private final StringProperty team;
     private final StringProperty clue;
     private final StringProperty guessedWords;
@@ -24,16 +21,17 @@ public class TurnLog implements Serializable {
     private final Team winnerTeam;
     //endregion
 
-    public TurnLog(Team team,
+    private TurnLog(Team team,
                    String clue,
-                   List<String> guessedWords,
-                   List<String> correctWords,
-                   List<String> opponentWords,
-                   List<String> passangerWords,
+                   String guessedWords,
+                   String correctWords,
+                   String opponentWords,
+                   String passangerWords,
                    String killerWord,
                    Team winnerTeam) {
-        this.team = new SimpleStringProperty(team.getTeamColor().toString() + " | " + team.getSpymaster().getName()
-                + " (s) " + team.getOperative().getName() + " (o)");
+        this.team = new SimpleStringProperty("(" + team.getTeamColor() + ") "
+                + team.getSpymasterName() + " (s)"
+                + team.getOperativeName() + " (o)");
         this.clue = new SimpleStringProperty(clue);
         this.guessedWords = new SimpleStringProperty(String.join(", ", guessedWords));
         this.correctWords = new SimpleStringProperty(String.join(", ", correctWords));
@@ -42,12 +40,20 @@ public class TurnLog implements Serializable {
         this.killerWord = new SimpleStringProperty(killerWord != null ? killerWord : "");
         this.victory = new SimpleStringProperty(winnerTeam != null ? winnerTeam.getTeamColor() + " Team VICTORY" : "");
         this.winnerTeam = winnerTeam;
-        this.dateTime = LocalDateTime.now();
     }
+
+    public static TurnLog fromSerializableTurnLog(SerializableTurnLog serializableTurnLog){
+        return new TurnLog(serializableTurnLog.getTeam(),
+                serializableTurnLog.getClue(),
+                serializableTurnLog.getGuessedWords(),
+                serializableTurnLog.getCorrectWords(),
+                serializableTurnLog.getOpponentWords(),
+                serializableTurnLog.getPassangerWords(),
+                serializableTurnLog.getKillerWord(),
+                serializableTurnLog.getWinnerTeam());
+    }
+
     public Team getWinnerTeam() { return winnerTeam; }
-    public StringProperty dateTimeProperty() {
-        return new SimpleStringProperty(this.dateTime.toString());
-    }
 
     public final StringProperty teamProperty() {
         return team;

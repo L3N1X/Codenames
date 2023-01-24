@@ -2,6 +2,7 @@ package hr.algebra.codenames.repository.implementations;
 
 import hr.algebra.codenames.repository.interfaces.Repository;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +15,16 @@ public class MemoryRepository implements Repository {
 
     @Override
     public void writeReflectionDocs(String ldocs) {
+        throw new RuntimeException();
+    }
+
+    @Override
+    public void writeGameLogs(String xmlTurns) throws IOException {
+        throw new RuntimeException();
+    }
+
+    @Override
+    public String readGameLogs() throws IOException {
         throw new RuntimeException();
     }
 }

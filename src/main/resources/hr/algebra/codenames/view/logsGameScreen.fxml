@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="908.0" prefWidth="1447.0" styleClass="background_gradient" stylesheets="@../style/codenamesStyles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.codenames.controller.LogsGameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="908.0" prefWidth="1447.0" styleClass="background_gradient" stylesheets="@../style/codenamesStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.codenames.controller.LogsGameController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
@@ -55,7 +55,6 @@
                            <children>
                               <TableView fx:id="tblvLogs" prefHeight="645.0" prefWidth="1440.0" style="-fx-background-color: rgba(0,0,0,0);">
                                 <columns>
-                                  <TableColumn fx:id="tcTime" prefWidth="75.0" text="TIME" />
                                   <TableColumn fx:id="tcTeam" prefWidth="75.0" text="TEAM" />
                                     <TableColumn fx:id="tcClue" prefWidth="75.0" text="CLUE" />
                                     <TableColumn fx:id="tcGuessedWords" prefWidth="75.0" text="GUESSED WORDS" />

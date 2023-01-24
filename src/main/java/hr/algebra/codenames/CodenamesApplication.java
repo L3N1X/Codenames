@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class CodenamesApplication extends Application {
 
@@ -17,6 +18,8 @@ public class CodenamesApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
+        mainStage.getIcons().add(
+                new Image(Objects.requireNonNull(CodenamesApplication.class.getResourceAsStream(GameSettings.ICON_PATH))));
         FXMLLoader fxmlLoader = new FXMLLoader(CodenamesApplication.class.getResource(GameSettings.START_VIEW_PATH));
         Scene scene = new Scene(fxmlLoader.load(), 1500, 900);
         stage.setTitle(GameSettings.GAME_TITLE);
