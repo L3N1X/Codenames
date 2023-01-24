@@ -1,7 +1,7 @@
 package hr.algebra.codenames.model;
 
-import hr.algebra.codenames.model.enums.PlayerRole;
 import hr.algebra.codenames.model.enums.CardColor;
+import hr.algebra.codenames.model.enums.PlayerRole;
 import hr.algebra.codenames.model.singleton.GameSettings;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;

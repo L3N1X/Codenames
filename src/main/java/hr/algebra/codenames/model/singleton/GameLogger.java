@@ -1,7 +1,6 @@
 package hr.algebra.codenames.model.singleton;
 
 import hr.algebra.codenames.model.SerializableTurnLog;
-import hr.algebra.codenames.model.TurnLog;
 
 import java.io.Serial;
 import java.io.Serializable;

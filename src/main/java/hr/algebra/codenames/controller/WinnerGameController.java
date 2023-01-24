@@ -3,7 +3,6 @@ package hr.algebra.codenames.controller;
 import hr.algebra.codenames.CodenamesApplication;
 import hr.algebra.codenames.model.GameHolder;
 import hr.algebra.codenames.model.SerializableTurnLog;
-import hr.algebra.codenames.model.TurnLog;
 import hr.algebra.codenames.model.enums.CardColor;
 import hr.algebra.codenames.model.singleton.GameLogger;
 import hr.algebra.codenames.model.singleton.GameSettings;
@@ -12,7 +11,6 @@ import hr.algebra.codenames.utils.DialogUtils;
 import hr.algebra.codenames.utils.FXMLLoaderUtils;
 import hr.algebra.codenames.xml.jaxb.XMLConverter;
 import hr.algebra.codenames.xml.model.XmlTurnListWrapper;
-import hr.algebra.codenames.xml.model.XmlTurnLog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,7 +23,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class WinnerGameController {

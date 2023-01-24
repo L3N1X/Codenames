@@ -1,7 +1,6 @@
 package hr.algebra.codenames.repository.implementations;
 
 import hr.algebra.codenames.repository.interfaces.Repository;
-import hr.algebra.codenames.xml.model.XmlTurnLog;
 
 import java.io.File;
 import java.io.IOException;
