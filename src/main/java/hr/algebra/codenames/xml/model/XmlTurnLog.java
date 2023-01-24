@@ -4,6 +4,7 @@ package hr.algebra.codenames.xml.model;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+//TEST
 @Root(name = "game-turn")
 public class XmlTurnLog {
     @Element(name = "date-time")
