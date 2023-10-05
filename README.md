@@ -8,8 +8,6 @@
 
 
 
-
-
 ## Game features
 
 - LAN Multiplayer (4 players)
@@ -31,6 +29,12 @@
 This project has a server and client app. To test it out, start the server app first, and then run four client instances. They'll connect automatically to the local host and the port you've set in the JNDI.
 
 Once all players have signed up, the game begins, following the rules of the original board game. Each round ends when one team wins, and you can keep playing until you decide to stop. The team with the most round wins wins overall.
+
+## Screenshots
+![Screenshot 2023-10-05 213405](https://github.com/L3N1X/Codenames/assets/67825601/1e37cac7-77f4-4a3b-bd29-0003c7edb349)
+![Screenshot 2023-10-05 213858](https://github.com/L3N1X/Codenames/assets/67825601/c415d13b-d151-41ea-9e78-157d5efeba1c)
+![Screenshot 2023-10-05 213958](https://github.com/L3N1X/Codenames/assets/67825601/03781e85-a7d2-42c5-899b-e2c37cbbcfe7)
+
     
 ## Tech Stack
 
