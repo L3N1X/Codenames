@@ -1,5 +1,5 @@
 
-![Logo]([https://camo.githubusercontent.com/39a3912db83336e97ef3b8f5e4290525fbd2a90c8d4ab0c6cff0bf9ffc1874de/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3739373232343831383736333130343331372f313032363134393732393139343735343036382f636f64656e616d65732d6772616469656e742e706e67](https://www.google.com/url?sa=i&url=https%3A%2F%2Fczechgames.com%2Ffor-press%2Fcodenames%2Findex.html&psig=AOvVaw1M2FlnQ15IWHdoWYgnokGE&ust=1713797521312000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCMCs07XH04UDFQAAAAAdAAAAABAE))
+![Logo]([https://www.google.com/url?sa=i&url=https%3A%2F%2Fczechgames.com%2Ffor-press%2Fcodenames%2Findex.html&psig=AOvVaw3bevAYZnNoYAthtgWVQfti&ust=1723226924221000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCOi1mdf-5YcDFQAAAAAdAAAAABAE])
 
 
 # Codenames Java Edition
