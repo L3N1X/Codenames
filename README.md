@@ -1,5 +1,5 @@
 
-![Logo]([https://www.google.com/url?sa=i&url=https%3A%2F%2Fczechgames.com%2Ffor-press%2Fcodenames%2Findex.html&psig=AOvVaw3bevAYZnNoYAthtgWVQfti&ust=1723226924221000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCOi1mdf-5YcDFQAAAAAdAAAAABAE])
+![alt text](https://www.google.com/url?sa=i&url=https%3A%2F%2Fczechgames.com%2Ffor-press%2Fcodenames%2Findex.html&psig=AOvVaw2o-92rRrUd_C1o93V_OMNo&ust=1723226993128000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJiOtfr-5YcDFQAAAAAdAAAAABAE)
 
 
 # Codenames Java Edition
